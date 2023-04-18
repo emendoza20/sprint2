@@ -1,5 +1,5 @@
 Nivel 1 :star: :star:
-- Ejercicio 1 - Óptica
+**- Ejercicio 1 - Óptica**
 Una óptica, llamada “Cul d'Ampolla”, quiere informatizar la gestión de los clientes/as y ventas de gafas.
 
 En primer lugar, la óptica quiere saber cuál es el proveedor de cada una de las gafas. En concreto quiere saber de cada proveedor : El nombre, la dirección (calle, número, piso, puerta, ciudad, código postal y país), teléfono, fax, NIF.
