@@ -1,0 +1,1 @@
+https://dbdiagram.io/d/643d12896b31947051b67eb3 <=Herramienta para crear diagramas
