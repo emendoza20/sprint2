@@ -1,3 +1,11 @@
-https://blogprog.gonzalolopez.es/articulos/tipo-de-dato-enum-en-mysql.html <== tipo de dato enumerado
+Nivel 1 :star: :star:
+- Ejercicio 1 - Óptica
+Una óptica, llamada “Cul d'Ampolla”, quiere informatizar la gestión de los clientes/as y ventas de gafas.
 
-https://www.google.com/search?q=dbdiagram&rlz=1C1CHBD_esES930ES930&oq=dbdia&aqs=chrome.2.69i60j69i57j0i512l3j69i60l3.4998j0j4&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:be15b060,vid:yN1RnjZEosY diagrama
+En primer lugar, la óptica quiere saber cuál es el proveedor de cada una de las gafas. En concreto quiere saber de cada proveedor : El nombre, la dirección (calle, número, piso, puerta, ciudad, código postal y país), teléfono, fax, NIF.
+
+La política de compras de la óptica se basa en que las gafas de una marca se comprarán a un único proveedor (así podrá sacar mejores precios), pero pueden comprar gafas de varias marcas a un proveedor. De las gafas quiere saber: La marca, la graduación de cada uno de los cristales, el tipo de montura (flotante, pasta o metálica), el color de la montura, el color de cada vidrio, el precio.
+
+De los clientes/as desea almacenar: El nombre, la dirección postal, el teléfono, el correo electrónico, la fecha de registro.
+Cuando llega un/a cliente/a nuevo, almacenar el/la cliente/a que le ha recomendado el establecimiento (siempre que alguien le haya recomendado).
+Nuestro sistema deberá indicar quién ha sido el empleado/a que ha vendido cada anteojo. Define un período de tiempo de ventas.
