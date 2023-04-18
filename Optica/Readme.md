@@ -1,8 +1,8 @@
-**Nivel 1** :star: :star: 
+**Nivel 1** :star:
 
-***Ejercicio 1 ***
+**Ejercicio 1 ***
 
-***Óptica*** :eyeglasses:	:eyeglasses:	
+***Óptica*** :eyeglasses:	:dark_sunglasses:
 
 Una óptica, llamada “Cul d'Ampolla”, quiere informatizar la gestión de los clientes/as y ventas de gafas.
 
