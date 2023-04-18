@@ -1,5 +1,9 @@
-Nivel 1 :star: :star:
-**- Ejercicio 1 - Óptica**
+**Nivel 1** :star: :star: 
+
+***Ejercicio 1 ***
+
+***Óptica*** :eyeglasses:	:eyeglasses:	
+
 Una óptica, llamada “Cul d'Ampolla”, quiere informatizar la gestión de los clientes/as y ventas de gafas.
 
 En primer lugar, la óptica quiere saber cuál es el proveedor de cada una de las gafas. En concreto quiere saber de cada proveedor : El nombre, la dirección (calle, número, piso, puerta, ciudad, código postal y país), teléfono, fax, NIF.
@@ -8,4 +12,6 @@ La política de compras de la óptica se basa en que las gafas de una marca se c
 
 De los clientes/as desea almacenar: El nombre, la dirección postal, el teléfono, el correo electrónico, la fecha de registro.
 Cuando llega un/a cliente/a nuevo, almacenar el/la cliente/a que le ha recomendado el establecimiento (siempre que alguien le haya recomendado).
+
 Nuestro sistema deberá indicar quién ha sido el empleado/a que ha vendido cada anteojo. Define un período de tiempo de ventas.
+
