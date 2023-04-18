@@ -1,6 +1,6 @@
 **Nivel 1** :star:
 
-**Ejercicio 1 ***
+**Ejercicio 1**
 
 ***Óptica*** :eyeglasses:	:dark_sunglasses:
 
