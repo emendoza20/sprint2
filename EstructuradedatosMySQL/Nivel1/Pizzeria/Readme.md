@@ -21,3 +21,8 @@ De cada categoría se almacena un identificador único y un nombre. Un pedido es
 
 En una tienda pueden trabajar muchos empleados y un empleado sólo puede trabajar en una tienda. De cada empleado/a, se almacena un identificador único: Nombre, apellidos, NIF, Teléfono.
 Si trabaja como cocinero/ao repartidor/a. Para los pedidos de reparto a domicilio interesa guardar quién es el repartidor/a que hace la entrega del pedido y la fecha/hora del momento de la entrega.
+
+**Notas** :notebook_with_decorative_cover: :notebook_with_decorative_cover:
+https://users.dcc.uchile.cl/~mnmonsal/BD/guias/g-modeloER.pdf : *ejemplos de modelo entidad relacion*
+
+https://www.holistics.io/blog/a-database-diagram-designer-built-for-developers-and-analysts/
