@@ -12,16 +12,22 @@ CREATE TABLE `Clientes` (
 CREATE TABLE `pedidos` (
   `id_pedido` integer PRIMARY KEY,
   `tipo_pedido` enum,
-  `tipo_producto` enum,
   `cant_productos` integer,
   `precio_total` float,
-  `fecha_hora` datetime,
-  `tipo_empleado` enum
+  `fecha_hora` datetime
 );
 
 CREATE TABLE `categoria` (
-  `numero_categoria` integer PRIMARY KEY,
-  `nombre_Categoria` varchar(10)
+  `id_categoria` int,
+  `nombre_categoria` varchar(255),
+  PRIMARY KEY (`id_categoria`, `nombre_categoria`)
+);
+
+CREATE TABLE `producto` (
+  `num_pedido` integer PRIMARY KEY,
+  `tipo_producto` enum,
+  `descripcion` varchar(30),
+  `imagen` VARBINARY(max)
 );
 
 CREATE TABLE `tienda` (
@@ -35,7 +41,12 @@ CREATE TABLE `tienda` (
 CREATE TABLE `empleado` (
   `Nif_empleado` integer PRIMARY KEY,
   `apellido` varchar(10),
-  `numero_telefono_empleado` integer
+  `numero_telefono_empleado` integer,
+  `tipo_empleado` enum
 );
 
 ALTER TABLE `pedidos` ADD FOREIGN KEY (`id_pedido`) REFERENCES `Clientes` (`id_cliente`);
+
+ALTER TABLE `producto` ADD FOREIGN KEY (`num_pedido`) REFERENCES `categoria` (`id_categoria`);
+
+ALTER TABLE `empleado` ADD FOREIGN KEY (`Nif_empleado`) REFERENCES `tienda` (`nif_tienda`);
