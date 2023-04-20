@@ -26,3 +26,9 @@ Si trabaja como cocinero/ao repartidor/a. Para los pedidos de reparto a domicili
 https://users.dcc.uchile.cl/~mnmonsal/BD/guias/g-modeloER.pdf : *ejemplos de modelo entidad relacion*
 
 https://www.holistics.io/blog/a-database-diagram-designer-built-for-developers-and-analysts/
+
+
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe" --defaults-file="C:\ProgramData\MySQL\MySQL Server 8.0\my.ini"  --init-file="C:\rootReset.txt" --console
+
+
+https://www.youtube.com/watch?v=AJCAoM4BcqU =video para resetear pasword de mysqlworkbench
