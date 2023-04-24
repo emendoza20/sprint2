@@ -14,12 +14,15 @@ CREATE TABLE `Proveedor` (
 );
 
 CREATE TABLE `Gafas` (
-  `id_proveedor` integer PRIMARY KEY,
+    `id` INTEGER PRIMARY KEY,
+  `id_proveedor` integer,
   `marca` varchar(30),
   `graduacion` integer,
-  `tipo_montura` enum,
+    `tipo_montura` ENUM('flotante', 'pasta', 'metálica'),
   `color_montura` varchar(10),
   `color_vidrio` varchar(5)
+   `precio` FLOAT,
+   FOREIGN KEY (`id_proveedor`) REFERENCES `Proveedor` (`NIF`)
 );
 
 CREATE TABLE `Cliente` (
@@ -29,6 +32,8 @@ CREATE TABLE `Cliente` (
   `phone` integer,
   `email` varchar(25),
   `fecha_registro` DATE
+    `recomendador_id` INTEGER,
+     FOREIGN KEY (`recomendador_id`) REFERENCES `Cliente` (`id`)
 );
 
 CREATE TABLE `Empleado` (
@@ -44,6 +49,7 @@ CREATE TABLE `ventas` (
   `venta_id` integer PRIMARY KEY,
   `id_cliente` integer,
   `id_empleado` integer,
+  `id_gafas` integer,
   `tiempo_ventas` datetime
 );
 
