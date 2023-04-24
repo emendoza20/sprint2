@@ -53,10 +53,6 @@ CREATE TABLE `ventas` (
   `tiempo_ventas` datetime
 );
 
-ALTER TABLE `Gafas` ADD FOREIGN KEY (`id_proveedor`) REFERENCES `Proveedor` (`NIF`);
-
-ALTER TABLE `Gafas` ADD FOREIGN KEY (`id_proveedor`) REFERENCES `Cliente` (`id`);
-
-ALTER TABLE `Gafas` ADD FOREIGN KEY (`id_proveedor`) REFERENCES `Empleado` (`empleado_id`);
-
-ALTER TABLE `ventas` ADD FOREIGN KEY (`venta_id`) REFERENCES `Empleado` (`empleado_id`);
+FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id`),
+  FOREIGN KEY (`id_empleado`) REFERENCES `Empleado` (`id`),
+  FOREIGN KEY (`id_gafas`) REFERENCES `Gafas` (`id`)
