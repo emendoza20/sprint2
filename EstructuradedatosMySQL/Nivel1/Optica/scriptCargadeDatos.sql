@@ -1,9 +1,9 @@
 -- Insertar datos de ejemplo en la tabla Proveedor
-INSERT INTO Proveedor (NIF, name, location, street, numberPhone, floor, door, city, zip_code, country, phone, fax)
-VALUES (1, 'Proveedor 1', 'Barcelona', 'Calle Proveedor 1', 123456789, 1, 1, 'Barcelona', 08001, 'España', 987654321, 123456789);
+INSERT INTO Proveedor (NIF, name, street, numberPhone, floor, door, city, zip_code, country, phone, fax)
+VALUES (1, 'Proveedor 1', 'Calle Proveedor 1', 123456789, 1, 1, 'Barcelona', 08001, 'España', 987654321, 123456789);
 
-INSERT INTO Proveedor (NIF, name, location, street, numberPhone, floor, door, city, zip_code, country, phone, fax)
-VALUES (2, 'Proveedor 2', 'Madrid', 'Calle Proveedor 2', 987654321, 2, 2, 'Madrid', 28001, 'España', 123456789, 987654321);
+INSERT INTO Proveedor (NIF, name,  street, numberPhone, floor, door, city, zip_code, country, phone, fax)
+VALUES (2, 'Proveedor 2', 'Calle Proveedor 2', 987654321, 2, 2, 'Madrid', 28001, 'España', 123456789, 987654321);
 
 -- Insertar datos de ejemplo en la tabla Gafas
 INSERT INTO Gafas (id_proveedor, marca, graduacion, tipo_montura, color_montura, color_vidrio, precio)
