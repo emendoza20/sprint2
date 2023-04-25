@@ -1,5 +1,4 @@
 
-
 DROP DATABASE IF EXISTS tienda;
 CREATE DATABASE tienda CHARACTER SET utf8mb4;
 USE tienda;
@@ -39,3 +38,26 @@ INSERT INTO producto VALUES(9, 'Portátil Ideapd 320', 444, 2);
 INSERT INTO producto VALUES(10, 'Impresora HP Deskjet 3720', 59.99, 3);
 INSERT INTO producto VALUES(11, 'Impresora HP Laserjet Pro M26nw', 180, 3);
 
+/**Hacer consultas */
+/*Tenemos las tablas producto y fabricante, cada una con los siguientes campos:
+- producto (codigo, número, precio, codigo_fabricante)
+- fabricante (codigo, número)
+El campo 'codigo_fabricante' de la entidad producto se relaciona con el campo 'código' de la entidad fabricante.
+Por favor, efectúa las siguientes consultas:*/
+
+/*1) Lista el nombre de todos los productos que hay en la tabla producto.*/
+SELECT* nombre FROM producto ;
+
+/*2) Lista los nombres y los precios de todos los productos de la tabla producto.*/
+SELECT* nombre,precio FROM producto ;
+
+/*3) Lista todas las columnas de la tabla producto. */
+
+SELECT* FROM producto;
+
+/*4 Lista el nombre de los productos, el precio en euros y el precio en dólares estadounidenses (USD).*/
+
+SELECT nombre,precio
+
+ 
+/*Lista el nombre de los productos, el precio en euros y el precio en dólares estadounidenses (USD). Utiliza los siguientes sobrenombre para las columnas: nombre de producto, euros, dólares.*/
