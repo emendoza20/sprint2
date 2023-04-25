@@ -1,4 +1,11 @@
 -- Insertar usuarios
+
+
+
+
+
+
+
 INSERT INTO usuarios (email, password, nombre_usuario, fecha_nacimiento, sexo, país, código_postal) 
 VALUES 
   ('user1@example.com', 'contraseña1', 'Usuario 1', '1990-01-01', 'M', 'España', '08001'),
@@ -13,14 +20,7 @@ VALUES
   ('user1@example.com', 'Video 2', 'Descripción del video 2', 2048, 'video2.mp4', '00:20:00', 'thumb2.jpg', 100, 50, 5, 'público'),
   ('user2@example.com', 'Video 3', 'Descripción del video 3', 512, 'video3.mp4', '00:05:00', 'thumb3.jpg', 30, 10, 1, 'privado'),
   ('user3@example.com', 'Video 4', 'Descripción del video 4', 4096, 'video4.mp4', '00:30:00', 'thumb4.jpg', 200, 100, 10, 'público');
-
--- Insertar etiquetas
-INSERT INTO etiquetas (nombre_etiqueta)
-VALUES 
-  ('Deportes'),
-  ('Música'),
-  ('Comedia'),
-  ('Educación');
+ 
 
 -- Insertar videos_etiquetas
 INSERT INTO videos_etiquetas (id_video, id_etiqueta)
@@ -109,6 +109,9 @@ INSERT INTO videos_playlists (id_video, id_playlist) VALUES
     (3, 4);
 
 -- INSERT INTO para la tabla comentarios
-INSERT INTO comentarios (id_usuario, id_video, texto, fecha_hora) VALUES
-    ('user1@gmail.com', 1, '¡Qué buena canción!', '2022-02-20 10:20:00'),
-    ('user2@gmail.com', 1, 'No me gusta mucho esta música', '2022-02-20 11:30:
+INSERT INTO comentarios (id_comentario,id_usuario, id_video, texto, fecha_hora) 
+VALUES (2,'user1@gmail.com', 1, '¡Qué buena canción!', '2022-02-20 10:20:00');
+
+
+INSERT INTO likes_dislikes_comentarios(id_usuario,id_comentario,tipo,fecha_hora)
+VALUES (2,'user1@gmail.com', 2, '¡Qué buena canción!', ' malo','2022-02-20 10:20:00');
