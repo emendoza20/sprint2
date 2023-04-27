@@ -153,13 +153,13 @@ JOIN fabricante ON producto.codigo_fabricante = fabricante.codigo_fabricante;
 /*24 Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.*/
 /*24 SELECT p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"*/
 FROM producto p
-INNER JOIN fabricante f ON p.cod_fabricante = f.codigo
+INNER JOIN fabricante f ON p.codigo_fabricante = f.codigo
 ORDER BY p.precio ASC
 LIMIT 1;
  
 SELECT p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"
 FROM producto p
-INNER JOIN fabricante f ON p.cod_fabricante = f.codigo
+INNER JOIN fabricante f ON p.codigo_fabricante = f.codigo
 ORDER BY p.precio ASC
 LIMIT 1;
 
@@ -167,6 +167,10 @@ LIMIT 1;
  
  SELECT  p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"
 FROM producto p
-INNER JOIN fabricante f ON p.cod_fabricante = f.codigo
+INNER JOIN fabricante f ON p.codigo_fabricante = f.codigo
 ORDER BY p.precio DESC
 LIMIT 1;
+
+/*26 Devuelve una lista de todos los productos del fabricante Lenovo.*/
+
+SELECT *FROM producto p JOIN fabricante f on p.producto=
