@@ -1,0 +1,1 @@
+https://database.guide/fix-error-1054-42s22-unknown-column-in-on-clause-in-mariadb/ =errores de campos que no se encuentran en las tablas error "on clause"

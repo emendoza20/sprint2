@@ -79,7 +79,7 @@ SELECT nombre, UPPER(SUBSTRING(nombre, 1, 2)) AS dos_letras FROM fabricante;
 
 
 
-/*9)Lista los nombres y los precios de todos los productos de la mesa producto, redondeando el valor del precio.
+/*9)Lista los nombres y los precios de todos los productos de la tabla producto, redondeando el valor del precio.
  */
 
  SELECT nombre, ROUND(precio) AS precio_redondeado FROM producto;
@@ -135,11 +135,11 @@ WHERE cod_fabricante = 2;
 
 SELECT p.nombre AS "nombre del producto", p.precio AS "precio", f.nombre AS "nombre del fabricante"
 FROM producto p
-JOIN fabricante f ON p.cod_fabricante = f.codigo;
+JOIN fabricante f ON p.codigo_fabricante = f.codigo;
 
 /*22 Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la base de datos. Ordena el resultado por el nombre del fabricante, por orden alfabético.*/
 
-SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante 
+SELECT p.nombre AS "nombre_producto", p.precio, f.nombre AS nombre_fabricante 
 FROM producto p 
 INNER JOIN fabricante f ON p.codigo_fabricante = f.codigo 
 ORDER BY f.nombre ASC;
@@ -149,14 +149,24 @@ ORDER BY f.nombre ASC;
 SELECT producto.codigo_producto, producto.nombre_producto, producto.codigo_fabricante, fabricante.nombre_fabricante
 FROM producto
 JOIN fabricante ON producto.codigo_fabricante = fabricante.codigo_fabricante;
-/*24 SELECT p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"
+
+/*24 Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.*/
+/*24 SELECT p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"*/
 FROM producto p
 INNER JOIN fabricante f ON p.cod_fabricante = f.codigo
 ORDER BY p.precio ASC
 LIMIT 1;
- */
+ 
 SELECT p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"
 FROM producto p
 INNER JOIN fabricante f ON p.cod_fabricante = f.codigo
 ORDER BY p.precio ASC
+LIMIT 1;
+
+/*25) Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más caro.*/
+ 
+ SELECT  p.nombre as "nombre del producto", p.precio, f.nombre as "nombre del fabricante"
+FROM producto p
+INNER JOIN fabricante f ON p.cod_fabricante = f.codigo
+ORDER BY p.precio DESC
 LIMIT 1;
