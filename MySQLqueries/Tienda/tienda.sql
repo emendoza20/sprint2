@@ -172,5 +172,129 @@ ORDER BY p.precio DESC
 LIMIT 1;
 
 /*26 Devuelve una lista de todos los productos del fabricante Lenovo.*/
+SELECT * FROM producto WHERE codigo_fabricante = 2;
+/*27 Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.*/
 
-SELECT *FROM producto p JOIN fabricante f on p.producto=
+SELECT * FROM producto WHERE codigo_fabricante = 6 AND precio > 200;
+
+/*28 Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packard y Seagate. Sin utilizar el operador IN.*/
+/*Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packard y Seagate. Sin utilizar el operador IN.*/
+SELECT producto.*
+FROM producto
+JOIN fabricante ON producto.codigo_fabricante = fabricante.codigo
+WHERE fabricante.nombre = 'Asus'
+   OR fabricante.nombre = 'Hewlett-Packard'
+   OR fabricante.nombre = 'Seagate';
+/*29 Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packard y Seagate. Utilizando el operador IN.*/
+
+SELECT *
+FROM producto
+WHERE codigo_fabricante IN (
+  SELECT codigo
+  FROM fabricante
+  WHERE nombre IN ('Asus', 'Hewlett-Packard', 'Seagate')
+);
+/*30Devuelve un listado con el nombre y el precio de todos los productos de los fabricantes cuyo nombre acabe por la vocal e. SELECT p.nombre, p.precio*/
+FROM producto p
+JOIN fabricante f ON p.codigo_fabricante = f.codigo
+WHERE f.nombre LIKE '%e';
+
+/*31 Retorna un llistat amb el nom i el preu de tots els productes el nom de fabricant dels quals contingui el caràcter w en el seu nom.*/
+SELECT p.nombre, p.precio
+FROM producto p
+JOIN fabricante f ON p.codigo_fabricante = f.codigo
+WHERE f.nombre LIKE '%w%';
+
+/*32 Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos que tengan un precio mayor o igual a 180€. Ordena el resultado, en primer lugar, por el precio (en orden descendente) y, en segundo lugar, por el nombre (en orden ascendente).*/
+SELECT p.nombre, p.precio, f.nombre AS fabricante
+FROM producto p
+JOIN fabricante f ON p.codigo_fabricante = f.codigo
+WHERE p.precio >= 180
+ORDER BY p.precio DESC, p.nombre ASC;
+/* 33 Devuelve un listado con el código y el nombre de fabricante, sólo de aquellos fabricantes que tienen productos asociados en la base de datos.*/
+SELECT DISTINCT fabricante.codigo, fabricante.nombre
+FROM fabricante
+INNER JOIN producto ON fabricante.codigo = producto.codigo_fabricante;
+
+/*34 Devuelve un listado de todos los fabricantes que existen en la base de datos, junto con los productos que tiene cada uno de ellos. El listado deberá mostrar también a aquellos fabricantes que no tienen productos asociados.*/
+
+SELECT f.codigo, f.nombre, COUNT(p.codigo) AS num_productos
+FROM fabricante f
+LEFT JOIN producto p ON f.codigo = p.codigo_fabricante
+GROUP BY f.codigo, f.nombre
+
+/*35 Devuelve un listado en el que sólo aparezcan aquellos fabricantes que no tienen ningún producto asociado.*/
+SELECT codigo, nombre
+FROM fabricante
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM producto
+  WHERE codigo_fabricante = fabricante.codigo
+);
+
+/*36 Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN). */  
+SELECT * FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo');
+
+/*37 Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin usar INNER JOIN).*/
+
+
+SELECT MAX(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo');
+SELECT * FROM producto WHERE precio = (SELECT MAX(precio) FROM producto WHERE codigo_fabricante = (SELECT codigo FROM fabricante WHERE nombre = 'Lenovo'));
+/*38 Lista el nombre del producto más caro del fabricante Lenovo.
+*/
+SELECT nombre
+FROM producto
+WHERE codigo_fabricante = (
+    SELECT codigo
+    FROM fabricante
+    WHERE nombre = 'Lenovo'
+)
+AND precio = (
+    SELECT MAX(precio)
+    FROM producto
+    WHERE codigo_fabricante = (
+        SELECT codigo
+        FROM fabricante
+        WHERE nombre = 'Lenovo'
+    )
+);
+
+/*39 Lista el nombre del producto más barato del fabricante Hewlett-Packard. */
+SELECT nombre
+FROM producto
+WHERE codigo_fabricante = (
+    SELECT codigo
+    FROM fabricante
+    WHERE nombre = 'Hewlett-Packard'
+)
+ORDER BY precio ASC
+LIMIT 1;
+/*40 Devuelve todos los productos de la base de datos que tienen un precio mayor o igual al producto más caro del fabricante Lenovo.*/
+SELECT *
+FROM producto
+WHERE precio >= (
+  SELECT MAX(precio)
+  FROM producto
+  WHERE codigo_fabricante = (
+    SELECT codigo
+    FROM fabricante
+    WHERE nombre = 'Lenovo'
+  )
+)
+/*41 Lista todos los productos del fabricante Asus que tienen un precio superior al precio medio de todos sus productos*/
+SELECT * 
+FROM producto 
+WHERE codigo_fabricante = (
+    SELECT codigo 
+    FROM fabricante 
+    WHERE nombre = 'Asus'
+) 
+AND precio > (
+    SELECT AVG(precio) 
+    FROM producto 
+    WHERE codigo_fabricante = (
+        SELECT codigo 
+        FROM fabricante 
+        WHERE nombre = 'Asus'
+    )
+);
