@@ -280,3 +280,80 @@ WHERE YEAR(fecha_nacimiento) = 1999;
 SELECT nombre, apellido1, apellido2
 FROM profesor
 WHERE telefono IS NULL AND RIGHT(nif, 1) = 'K';
+
+/*5   Devuelve el listado de las asignaturas que se imparten en el primer cuatrimestre, en el tercer curso del grado que tiene el identificador 7.*/
+SELECT asignatura.nombre
+FROM asignatura
+JOIN curso_escolar ON asignatura.id_curso_escolar = curso_escolar.id
+WHERE asignatura.cuatrimestre = 1 AND asignatura.curso = 3 AND asignatura.id_grado = 7;
+
+/*6 Devuelve un listado de los profesores/as junto con el nombre del departamento al que están vinculados. El listado debe devolver cuatro columnas, primer apellido, segundo apellido, nombre y nombre del departamento. El resultado estará ordenado alfabéticamente de menor a mayor por apellidos y nombre.*/
+
+SELECT profesor.apellido1, profesor.apellido2, profesor.nombre, departamento.nombre AS nombre_departamento
+FROM profesor
+JOIN departamento ON profesor.id_departamento = departamento.id_departamento
+ORDER BY profesor.apellido1, profesor.apellido2, profesor.nombre;
+/*7 Devuelve un listado con el nombre de las asignaturas, año de inicio y año de fin del curso escolar del alumno/a con NIF 26902806M */
+SELECT asignatura.nombre, curso_escolar.anyo_inicio, curso_escolar.anyo_fin
+FROM alumno_se_matricula_asignatura
+JOIN asignatura ON alumno_se_matricula_asignatura.id_asignatura = asignatura.id
+JOIN curso_escolar ON alumno_se_matricula_asignatura.id_curso_escolar = curso_escolar.id
+JOIN persona ON alumno_se_matricula_asignatura.id_alumno = persona.id
+WHERE persona.nif = '26902806M';
+/*8 Devuelve un listado con el nombre de todos los departamentos que tienen profesores/as que imparten alguna asignatura en el Grado en Ingeniería Informática (Plan 2015).*/
+
+SELECT DISTINCT departamento.nombre
+FROM asignatura
+JOIN departamento ON asignatura.id_departamento = departamento.id
+JOIN grado ON asignatura.id_grado = grado.id
+WHERE grado.nombre = 'Ingeniería Informática' AND grado.plan = '2015';
+
+/*9 Devuelve un listado con todos los alumnos que se han matriculado en alguna asignatura durante el curso escolar 2018/2019*/
+FROM alumno_se_matricula_asignatura
+JOIN persona ON alumno_se_matricula_asignatura.id_alumno = persona.id
+JOIN curso_escolar ON alumno_se_matricula_asignatura.id_curso_escolar = curso_escolar.id
+WHERE curso_escolar.anyo_inicio = '2018' AND curso_escolar.anyo_fin = '2019';
+/*Resuelve las 6 siguientes consultas utilizando las cláusulas LEFT JOIN y RIGHT JOIN.*/
+
+/1*Devuelve un listado con los nombres de todos los profesores/as y los departamentos que tienen vinculados. El listado también debe mostrar aquellos profesores/as que no tienen ningún departamento asociado. El listado debe devolver cuatro columnas, nombre del departamento, primer apellido, segundo apellido y nombre del profesor/a. El resultado estará ordenado alfabéticamente de menor a mayor por el nombre del departamento, apellidos y nombre.*/
+SELECT departamento.nombre AS nombre_departamento, persona.apellido1, persona.apellido2, persona.nombre
+FROM profesor
+LEFT JOIN departamento ON profesor.id_departamento = departamento.id_departamento
+JOIN persona ON profesor.id_profesor = persona.id
+ORDER BY nombre_departamento, apellido1, apellido2, nombre;
+/*2 Devuelve un listado con los profesores/as que no están asociados a un departamento.*/
+SELECT persona.apellido1, persona.apellido2, persona.nombre
+FROM profesor
+LEFT JOIN departamento ON profesor.id_departamento = departamento.id_departamento
+JOIN persona ON profesor.id_profesor = persona.id
+WHERE departamento.id_departamento IS NULL
+ORDER BY apellido1, apellido2, nombre;
+
+/*3 Devuelve un listado con los departamentos que no tienen profesores asociados.*/
+SELECT departamento.nombre
+FROM departamento
+LEFT JOIN profesor ON departamento.id_departamento = profesor.id_departamento
+WHERE profesor.id_profesor IS NULL
+ORDER BY departamento.nombre;
+
+/*4Devuelve un listado con los profesores/as que no imparten ninguna asignatura.*/
+SELECT profesor.primer_apellido, profesor.segundo_apellido, profesor.nombre
+FROM profesor
+LEFT JOIN asignatura ON asignatura.id_profesor = profesor.id_profesor
+WHERE asignatura.id_profesor IS NULL;
+
+/*5 Devuelve un listado con las asignaturas que no tienen un profesor/a asignado.*/
+SELECT asignatura.nombre AS asignatura
+FROM asignatura
+LEFT JOIN profesor ON asignatura.id_profesor = profesor.id_profesor
+WHERE asignatura.id_profesor IS NULL;
+
+/*6Devuelve un listado con todos los departamentos que no han impartido asignaturas en ningún curso escolar.*/
+SELECT d.nombre AS nombre_departamento
+FROM departamento d
+LEFT JOIN profesor p ON d.id = p.id_departamento
+LEFT JOIN asignatura a ON p.id_profesor = a.id_profesor
+LEFT JOIN alumno_se_matricula_asignatura ama ON a.id = ama.id_asignatura
+LEFT JOIN curso_escolar ce ON ama.id_curso_escolar = ce.id
+WHERE ce.id IS NULL
+GROUP BY d.id
