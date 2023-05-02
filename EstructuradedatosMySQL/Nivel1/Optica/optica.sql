@@ -1,103 +1,118 @@
-CREATE TABLE `Proveedor` (
-  `NIF` integer PRIMARY KEY,
-  `name` varchar(30),
-  `location` varchar(30),
-  `street` varchar(30),
-  `numberPhone` integer,
-  `floor` integer,
-  `door` integer,
-  `city` varchar(10),
-  `zip_code` integer,
-  `country` varchar(10),
-  `phone` integer,
-  `fax` integer
+
+-- Crear la base de datos
+CREATE DATABASE optica;
+
+-- Usar la base de datos optica
+USE optica;
+
+-- Tabla de proveedores
+CREATE TABLE proveedor (
+  id_proveedor INT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  calle VARCHAR(100),
+  numero INT,
+  piso INT,
+  puerta VARCHAR(10),
+  ciudad VARCHAR(100),
+  codigo_postal VARCHAR(10),
+  pais VARCHAR(50),
+  telefono VARCHAR(20),
+  fax VARCHAR(20),
+  NIF VARCHAR(20)
 );
 
-CREATE TABLE `Gafas` (
-    `id` INTEGER PRIMARY KEY,
-  `id_proveedor` integer,
-  `marca` varchar(30),
-  `graduacion` integer,
-    `tipo_montura` ENUM('flotante', 'pasta', 'metálica'),
-  `color_montura` varchar(10),
-  `color_vidrio` varchar(5)
-   `precio` FLOAT,
-   FOREIGN KEY (`id_proveedor`) REFERENCES `Proveedor` (`NIF`)
+-- Tabla de gafas
+CREATE TABLE gafa (
+  id_gafa INT PRIMARY KEY,
+  id_proveedor INT NOT NULL,
+  graduacion_izquierda FLOAT,
+  graduacion_derecha FLOAT,
+  tipo_montura VARCHAR(20),
+  color_montura VARCHAR(20),
+  color_vidrio_izquierdo VARCHAR(20),
+  color_vidrio_derecho VARCHAR(20),
+  marca VARCHAR(50),
+  precio DECIMAL(10,2),
+  FOREIGN KEY (id_proveedor) REFERENCES proveedor(id_proveedor)
 );
 
-CREATE TABLE `Cliente` (
-  `id` integer PRIMARY KEY,
-  `nombre` varchar(10),
-  `direccion` varchar(16),
-  `phone` integer,
-  `email` varchar(25),
-  `fecha_registro` DATE
-    `recomendador_id` INTEGER,
-     FOREIGN KEY (`recomendador_id`) REFERENCES `Cliente` (`id`)
+CREATE TABLE empleado (
+  id_empleado INT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  fecha_contratacion DATE,
+  puesto VARCHAR(100)
 );
 
-CREATE TABLE `Empleado` (
-  `empleado_id` integer PRIMARY KEY,
-  `nombre` varchar(10),
-  `direccion` varchar(16),
-  `phone` integer,
-  `email` varchar(25),
-  `fecha_regitro` DATE
+
+CREATE TABLE cliente (
+  id_cliente INT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  direccion VARCHAR(200),
+  telefono VARCHAR(20),
+  correo_electronico VARCHAR(100),
+  fecha_registro DATE,
+  id_cliente_recomendador INT
 );
 
-CREATE TABLE `ventas` (
-  `venta_id` integer PRIMARY KEY,
-  `id_cliente` integer,
-  `id_empleado` integer,
-  `id_gafas` integer,
-  `tiempo_ventas` datetime
+CREATE TABLE venta (
+  id_venta INT PRIMARY KEY,
+  id_gafa INT NOT NULL,
+  id_cliente INT NOT NULL,
+  id_empleado INT NOT NULL,
+  fecha_venta DATE,
+  FOREIGN KEY (id_gafa) REFERENCES gafa(id_gafa),
+  FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+  FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado)
 );
 
-FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id`),
-  FOREIGN KEY (`id_empleado`) REFERENCES `Empleado` (`id`),
-  FOREIGN KEY (`id_gafas`) REFERENCES `Gafas` (`id`)
 
+-- Insertar un proveedor
+INSERT INTO proveedor (id_proveedor, nombre, calle, numero, ciudad, codigo_postal, pais, telefono, fax, NIF)
+VALUES (1, 'Proveedor 1', 'Calle del Proveedor 1', 123, 'Ciudad 1', '12345', 'Pais 1', '123456789', '987654321', 'NIF123456789');
 
+-- Insertar una gafa
+INSERT INTO gafa (id_gafa, id_proveedor, graduacion_izquierda, graduacion_derecha, tipo_montura, color_montura, color_vidrio_izquierdo, color_vidrio_derecho, marca, precio)
+VALUES (1, 1, -2.5, -2.0, 'Montura 1', 'Negra', 'Azul', 'Verde', 'Marca 1', 99.99);
 
+-- Insertar un cliente
+INSERT INTO cliente (id_cliente, nombre, direccion, telefono, correo_electronico, fecha_registro, id_cliente_recomendador)
+VALUES (1, 'Cliente 1', 'Calle del Cliente 1', '123456789', 'cliente1@ejemplo.com', '2023-05-02', NULL);
 
+-- Insertar un empleado
+INSERT INTO empleado (id_empleado, nombre, fecha_contratacion, puesto)
+VALUES (1, 'Empleado 1', '2022-01-01', 'Vendedor');
 
--- Insertar datos de ejemplo en la tabla Proveedor
-INSERT INTO Proveedor (NIF, name, location, street, numberPhone, floor, door, city, zip_code, country, phone, fax)
-VALUES (1, 'Proveedor 1', 'Barcelona', 'Calle Proveedor 1', 123456789, 1, 1, 'Barcelona', 08001, 'España', 987654321, 123456789);
+-- Insertar una venta
+INSERT INTO venta (id_venta, id_gafa, id_cliente, id_empleado, fecha_venta)
+VALUES (1, 1, 1, 1, '2023-05-02');
 
-INSERT INTO Proveedor (NIF, name, location, street, numberPhone, floor, door, city, zip_code, country, phone, fax)
-VALUES (2, 'Proveedor 2', 'Madrid', 'Calle Proveedor 2', 987654321, 2, 2, 'Madrid', 28001, 'España', 123456789, 987654321);
+INSERT INTO proveedor (id_proveedor, nombre, calle, numero, piso, puerta, ciudad, codigo_postal, pais, telefono, fax, NIF)
+VALUES
+(1, 'Gafas S.A.', 'Calle Mayor', 5, NULL, 'B', 'Madrid', '28001', 'España', '910000001', '910000002', 'A12345678'),
+(2, 'Vision Center', 'Avenida del Mar', 15, NULL, NULL, 'Barcelona', '08001', 'España', '930000001', NULL, 'B98765432'),
+(3, 'Optica Sol', 'Calle del Sol', 10, 1, 'A', 'Valencia', '46001', 'España', '960000001', '960000002', 'C12345678');
 
--- Insertar datos de ejemplo en la tabla Gafas
-INSERT INTO Gafas (id_proveedor, marca, graduacion, tipo_montura, color_montura, color_vidrio, precio)
-VALUES (1, 'Marca 1', 2, 'flotante', 'rojo', 'azul', 50.00);
+INSERT INTO gafa (id_gafa, id_proveedor, graduacion_izquierda, graduacion_derecha, tipo_montura, color_montura, color_vidrio_izquierdo, color_vidrio_derecho, marca, precio)
+VALUES
+(1, 1, -1.5, -1.25, 'Completa', 'Negro', 'Transparente', 'Transparente', 'Ray-Ban', 120.50),
+(2, 2, NULL, -1.75, 'Semi al aire', 'Plateado', 'Azul', 'Azul', 'Prada', 250.00),
+(3, 3, 0, 0.25, 'Sin montura', NULL, 'Verde', 'Verde', 'Oakley', 180.00);
 
-INSERT INTO Gafas (id_proveedor, marca, graduacion, tipo_montura, color_montura, color_vidrio, precio)
-VALUES (1, 'Marca 1', 4, 'pasta', 'negro', 'verde', 100.00);
+INSERT INTO cliente (id_cliente, nombre, direccion, telefono, correo_electronico, fecha_registro, id_cliente_recomendador)
+VALUES
+(1, 'Juan Pérez', 'Calle del Sol, 5', '912345678', 'juan.perez@example.com', '2021-01-15', NULL),
+(2, 'María García', 'Avenida del Mar, 10', '931234567', 'maria.garcia@example.com', '2021-02-02', 1),
+(3, 'Luis Fernández', 'Calle Mayor, 20', '963456789', 'luis.fernandez@example.com', '2021-03-10', NULL);
 
--- Insertar datos de ejemplo en la tabla Cliente
-INSERT INTO Cliente (id, nombre, direccion, phone, email, fecha_registro)
-VALUES (1, 'Cliente 1', 'Calle Cliente 1', 123456789, 'cliente1@ejemplo.com', '2022-01-01');
+INSERT INTO empleado (id_empleado, nombre, fecha_contratacion, puesto)
+VALUES
+(1, 'Ana López', '2020-01-01', 'Optometrista'),
+(2, 'Pedro Sánchez', '2021-02-01', 'Recepcionista'),
+(3, 'Laura Torres', '2021-04-15', 'Optometrista');
 
-INSERT INTO Cliente (id, nombre, direccion, phone, email, fecha_registro)
-VALUES (2, 'Cliente 2', 'Calle Cliente 2', 987654321, 'cliente2@ejemplo.com', '2022-01-02');
-
--- Insertar datos de ejemplo en la tabla Empleado
-INSERT INTO Empleado (empleado_id, nombre, direccion, phone, email, fecha_regitro)
-VALUES (1, 'Empleado 1', 'Calle Empleado 1', 123456789, 'empleado1@ejemplo.com', '2022-01-01');
-
-INSERT INTO Empleado (empleado_id, nombre, direccion, phone, email, fecha_regitro)
-VALUES (2, 'Empleado 2', 'Calle Empleado 2', 987654321, 'empleado2@ejemplo.com', '2022-01-02');
-
--- Insertar datos de ejemplo en la tabla ventas
-INSERT INTO ventas (venta_id, id_cliente, id_empleado, tiempo_ventas)
-VALUES (1, 1, 1, '2022-01-01 10:00:00');
-
-INSERT INTO ventas (venta_id, id_cliente, id_empleado, tiempo_ventas)
-VALUES (2, 1, 2, '2022-01-02 11:00:00');
-
-INSERT INTO ventas (venta_id, id_cliente, id_empleado, tiempo_ventas)
-VALUES (3, 2, 1, '2022-01-03 12:00:00');
-
-INSERT INTO ventas (venta_id, id_cliente, id_empleado, tiempo_ventas)
-VALUES (4, 2,5,'2023-01-03 12:00:00');
+INSERT INTO venta (id_venta, id_gafa, id_cliente, id_empleado, fecha_venta)
+VALUES
+(1, 1, 1, 1, '2021-01-20'),
+(2, 2, 2, 2, '2021-02-15'),
+(3, 3, 3, 3, '2021-03-20'),
+(4, 1, 2, 3, '2021-04-25')
