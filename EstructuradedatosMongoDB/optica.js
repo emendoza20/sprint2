@@ -1,0 +1,1 @@
+db.Proveedor.insert({id_proveedor:1,nombre:"Gafas oculares"})
