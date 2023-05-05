@@ -17,3 +17,6 @@ La política de compras de la óptica se basa en que las gafas de una marca se c
 De los clientes/as desea almacenar: El nombre, la dirección postal, el teléfono, el correo electrónico, la fecha de registro.
 Cuando llega un/a cliente/a nuevo, almacenar el/la cliente/a que le ha recomendado el establecimiento (siempre que alguien le haya recomendado).
 Nuestro sistema deberá indicar quién ha sido el empleado/a que ha vendido cada anteojo. Define un período de tiempo de ventas.
+
+
+notas importantes :https://medium.com/techwomenc/como-pasar-de-sql-a-nosql-sin-sufrir-e34dd22349e5
