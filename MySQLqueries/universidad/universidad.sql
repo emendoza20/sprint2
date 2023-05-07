@@ -357,3 +357,84 @@ LEFT JOIN alumno_se_matricula_asignatura ama ON a.id = ama.id_asignatura
 LEFT JOIN curso_escolar ce ON ama.id_curso_escolar = ce.id
 WHERE ce.id IS NULL
 GROUP BY d.id
+
+
+/**consultas en resume**/
+/*1Devuelve el número total de alumnos existentes.*/
+
+SELECT COUNT(*) FROM persona WHERE tipo = 'alumno';
+
+
+/* 2 Calcula cuántos alumnos nacieron en 1999.*/
+
+SELECT COUNT(*) FROM persona WHERE tipo = 'alumno' AND YEAR(fecha_nacimiento) = 1999;
+
+
+/*3 Calcula cuántos profesores/as hay en cada departamento. El resultado sólo debe mostrar dos columnas, una con el nombre del departamento y otra con el número de profesores/as que hay en ese departamento. El resultado sólo debe incluir los departamentos que tienen profesores/as asociados y tendrá que estar ordenado de mayor a menor por el número de profesores/as.*/
+
+SELECT departamento.nombre, COUNT(profesor.id_profesor) as num_profesores
+FROM departamento
+INNER JOIN profesor ON departamento.id = profesor.id_departamento
+GROUP BY departamento.nombre
+ORDER BY num_profesores DESC;
+
+/*4Devuelve un listado con todos los departamentos y el número de profesores/as que hay en cada uno de ellos. Tenga en cuenta que pueden existir departamentos que no tienen profesores asociados. Estos departamentos también deben aparecer en el listado.*/
+SELECT departamento.nombre, COUNT(profesor.id_profesor) as num_profesores
+FROM departamento
+LEFT JOIN profesor ON departamento.id = profesor.id_departamento
+GROUP BY departamento.nombre;
+
+/*5Devuelve un listado con el nombre de todos los grados existentes en la base de datos y el número de asignaturas que tiene cada uno. Ten en cuenta que pueden existir grados que carecen de asignaturas asociadas. Estos grados también deben aparecer en el listado. El resultado deberá estar ordenado de mayor a menor por el número de asignaturas.*/
+
+SELECT grado.nombre, COUNT(asignatura.id) as num_asignaturas
+FROM grado
+LEFT JOIN asignatura ON grado.id = asignatura.id_grado
+GROUP BY grado.nombre
+ORDER BY num_asignaturas DESC;
+
+
+/*6 Devuelve un listado con el nombre de todos los grados existentes en la base de datos y el número de asignaturas que tiene cada uno, de los grados que tengan más de 40 asignaturas asociadas.*/
+
+SELECT grado.nombre, COUNT(asignatura.id) as num_asignaturas
+FROM grado
+LEFT JOIN asignatura ON grado.id = asignatura.id_grado
+GROUP BY grado.nombre
+HAVING num_asignaturas > 40
+ORDER BY num_asignaturas DESC;
+
+/*7 Devuelve un listado que muestre el nombre de los grados y la suma del número total de créditos existentes para cada tipo de asignatura. El resultado debe tener tres columnas: nombre del grado, tipo de asignatura y la suma de los créditos de todas las asignaturas que existen de este tipo.*/
+SELECT grado.nombre, asignatura.tipo, SUM(asignatura.creditos) as suma_creditos
+FROM grado
+LEFT JOIN asignatura ON grado.id = asignatura.id_grado
+GROUP BY grado.nombre, asignatura.tipo;
+/*8Devuelve un listado que muestre cuántos alumnos se han matriculado de alguna asignatura en cada uno de los cursos escolares. El resultado tendrá que mostrar dos columnas, una columna con el año de inicio del curso escolar y otra con el número de alumnos matriculados.*/
+
+SELECT curso_escolar.anyo_inicio, COUNT(DISTINCT alumno_se_matricula_asignatura.id_alumno) as num_alumnos
+FROM curso_escolar
+LEFT JOIN alumno_se_matricula_asignatura ON curso_escolar.id = alumno_se_matricula_asignatura.id_curso_escolar
+GROUP BY curso_escolar.anyo_inicio;
+
+/*9 Devuelve un listado con el número de asignaturas que imparte cada profesor/a. El listado debe tener en cuenta a aquellos profesores/as que no imparten ninguna asignatura. El resultado mostrará cinco columnas: id, nombre, primer apellido, segundo apellido y número de asignaturas. El resultado estará ordenado de mayor a menor por el número de asignaturas.*/SELECT p.id, p.nombre, p.apellido1, p.apellido2, 
+    COALESCE(COUNT(a.id_profesor), 0) AS num_asignaturas
+FROM persona p
+LEFT JOIN asignatura a ON p.id = a.id_profesor
+WHERE p.tipo = 'profesor'
+GROUP BY p.id
+ORDER BY num_asignaturas DESC;
+
+/*10 Devuelve todos los datos del alumno/a más joven.*/
+SELECT *
+FROM persona
+WHERE fecha_nacimiento = (
+    SELECT MIN(fecha_nacimiento)
+    FROM persona
+    WHERE tipo = 'alumno'
+)
+AND tipo = 'alumno';
+/*11 Devuelve un listado con los profesores/as que tienen un departamento asociado y que no imparten ninguna asignatura.*/
+
+SELECT persona.id, persona.nombre, persona.apellido1, persona.apellido2
+FROM persona
+JOIN profesor ON persona.id = profesor.id_profesor
+LEFT JOIN asignatura ON profesor.id_profesor = asignatura.id_profesor
+WHERE asignatura.id IS NULL;
